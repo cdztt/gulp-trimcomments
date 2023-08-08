@@ -8,8 +8,8 @@
     "test:gulp": "gulp",
     "tsc:build": "tsc -b --force src test",
     "tscw:build": "tsc -b --watch src test",
-    "dev": "webpack --mode development",
-    "build": "webpack --mode production",
+    "dev": "webpack --env development",
+    "build": "webpack --env production",
     "pub": "npm publish --access public"
   },
   "author": "",

@@ -149,6 +149,7 @@ class TrimCommentsInLine {
 
   trim(line: string) {
     this.init(line);
+
     const dsComment = this.getDoubleSlashCommentIndex(line);
     const mComments = this.getMultiCommentIndexes(line);
     const merged = this.mergeDoubleSlashCommentAndMultiComments(

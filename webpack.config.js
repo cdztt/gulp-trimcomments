@@ -1,9 +1,10 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 
-module.exports = {
+module.exports = (env) => ({
   target: 'node',
-  // devtool: 'inline-source-map',
+  mode: env.production ? 'production' : 'development',
+  devtool: env.production ? false : 'inline-source-map',
   entry: './src/index.ts',
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -16,11 +17,11 @@ module.exports = {
         test: /\.ts$/,
         loader: 'ts-loader',
         options: {
-          // transpileOnly: false,
+          transpileOnly: env.production ? true : false,
           configFile: '../tsconfig.json',
           onlyCompileBundledFiles: true,
         },
       },
     ],
   },
-};
+});
