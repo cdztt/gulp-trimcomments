@@ -1,6 +1,6 @@
 {
-  "name": "gulp-trimcomments",
-  "version": "1.0.0",
+  "name": "@cdztt/gulp-trimcomments",
+  "version": "1.0.2",
   "description": "",
   "main": "dist/index.js",
   "scripts": {

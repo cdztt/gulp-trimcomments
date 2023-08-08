@@ -9,6 +9,9 @@ module.exports = (env) => ({
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'index.js',
+    library: {
+      type: 'commonjs',
+    },
   },
   externals: [nodeExternals()],
   module: {

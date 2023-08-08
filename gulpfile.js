@@ -1,5 +1,5 @@
 const { dest, src } = require('gulp');
-const { default: trimCommentsInJson } = require('./src');
+const { default: trimCommentsInJson } = require('./dist');
 
 function task() {
   return src('test/test.json')
