@@ -7,3 +7,4 @@ test/**/*.js
 test/**/*.js.map
 test/**/*.d.ts
 dist
+tsconfig.tsbuildinfo
