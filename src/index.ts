@@ -38,5 +38,5 @@ async function transform(
   }
 }
 
-const inst = new Transform({ objectMode: true, transform });
-export default inst;
+const trimComments = new Transform({ objectMode: true, transform });
+export = trimComments;

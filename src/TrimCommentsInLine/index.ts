@@ -177,4 +177,4 @@ class TrimCommentsInLine {
   }
 }
 
-export default TrimCommentsInLine;
+export = TrimCommentsInLine;

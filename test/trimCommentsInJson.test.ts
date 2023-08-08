@@ -4,7 +4,7 @@ import path from 'node:path';
 import { Writable } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
 import File from 'vinyl';
-import trimCommentsInJson from '../src';
+import trimComments from '../src';
 
 const expected = `{
   "compilerOptions": {
@@ -42,6 +42,6 @@ function write(
 
 test('', async () => {
   const writable = new Writable({ objectMode: true, write });
-  await pipeline(readable('test.json'), trimCommentsInJson, writable);
+  await pipeline(readable('test.json'), trimComments, writable);
   expect(result).toBe(expected);
 });
