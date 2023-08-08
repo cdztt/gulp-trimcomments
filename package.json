@@ -5,9 +5,9 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test:gulp": "gulp",
     "tsc:build": "tsc -b --force src test",
     "tscw:build": "tsc -b --watch src test",
-    "gulp": "gulp",
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
     "pub": "npm publish --access public"
