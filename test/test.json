@@ -1,0 +1,15 @@
+{
+  "compilerOptions": { //adfaf
+    "target": "es2021", /* asdfaf
+    ads//fa
+    asdf */
+    "module": "UMD", /* adsf */
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+  },
+  "include": [
+    "src/**/*.ts" //"src/**/*.ts"
+  ]
+}
