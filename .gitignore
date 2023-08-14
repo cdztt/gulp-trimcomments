@@ -4,6 +4,7 @@ src/**/*.js
 src/**/*.js.map
 src/**/*.d.ts
 test/**/*.js
+!test/**/_manyComments_forTest.js
 test/**/*.js.map
 test/**/*.d.ts
 tsconfig.tsbuildinfo

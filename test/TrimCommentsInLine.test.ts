@@ -1,6 +1,7 @@
 import { expect, test } from '@jest/globals';
 import TrimCommentsInLine from '../src/TrimCommentsInLine';
 
+/* Test the class TrimCommentsInLine */
 test('', () => {
   const trimmer = new TrimCommentsInLine();
   expect(trimmer.trim('"//"abc')).toBe('"//"abc');

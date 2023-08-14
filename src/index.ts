@@ -1,4 +1,4 @@
-import { Transform } from 'node:stream';
+import { Transform, TransformCallback } from 'node:stream';
 import prettier from 'prettier';
 import File from 'vinyl';
 import TrimCommentsInLine from './TrimCommentsInLine';
@@ -15,28 +15,43 @@ function* readLineByLine(text: string) {
   yield text.slice(prevLastIndex);
 }
 
-async function transform(
-  file: File,
-  _: BufferEncoding,
-  cb: (error?: Error | null, data?: File) => void
-) {
-  try {
-    if (file.contents !== null) {
-      const text = file.contents.toString();
+const parserMap = new Map([
+  ['.js', 'babel'],
+  ['.json', 'json'],
+]);
+
+class TrimComments extends Transform {
+  constructor() {
+    super({ objectMode: true });
+  }
+
+  async _transform(file: File, _: BufferEncoding, cb: TransformCallback) {
+    try {
+      if (file.contents === null) {
+        throw new Error('File error');
+      }
+
+      const parser = parserMap.get(file.extname);
+      if (parser === undefined) {
+        throw new Error('Applies only to .json and .js files!');
+      }
+
+      let text = file.contents.toString();
+      text = await prettier.format(text, { parser });
+
       const trimmer = new TrimCommentsInLine();
       let trimmed = '';
-
       [...readLineByLine(text)].forEach((line) => {
         trimmed += trimmer.trim(line);
       });
-      trimmed = await prettier.format(trimmed, { parser: 'json' });
+
+      trimmed = await prettier.format(trimmed, { parser });
       file.contents = Buffer.from(trimmed);
+      cb(null, file);
+    } catch (err) {
+      cb(err as Error);
     }
-    cb(null, file);
-  } catch (err) {
-    cb(err as Error);
   }
 }
 
-const trimComments = new Transform({ objectMode: true, transform });
-export = trimComments;
+export { TrimComments };

@@ -1,9 +1,11 @@
+/* For testing */
+
 const { dest, src } = require('gulp');
-const trimCommentsInJson = require('./dist');
+const { TrimComments } = require('./dist');
 
 function task() {
-  return src('test/test.json')
-    .pipe(trimCommentsInJson)
+  return src('test/_manyComments_forTest.*')
+    .pipe(new TrimComments())
     .pipe(dest('test/gulp_result'));
 }
 

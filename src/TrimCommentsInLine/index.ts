@@ -1,8 +1,8 @@
 class TrimCommentsInLine {
-  private line!: string;
-  private length!: number;
-  private indexes!: number[];
-  private lookForClosed: number;
+  line!: string;
+  length!: number;
+  indexesOfQuotesAndRegexp!: number[][];
+  lookForClosed: number;
 
   constructor() {
     this.lookForClosed = -1;
@@ -11,23 +11,65 @@ class TrimCommentsInLine {
   init(line: string) {
     this.line = line;
     this.length = line.length;
-    this.indexes = this.getQuotesIndexes(line);
+    this.indexesOfQuotesAndRegexp = this.getQuotesAndRegexpIndexes(
+      this.getQuotesIndexes(line),
+      this.getRegexpIndexes(line)
+    );
   }
 
   getQuotesIndexes(line: string) {
-    const regexQuotes = new RegExp(/"/, 'g');
+    const regexQuotes = new RegExp(/(['"`]).*?\1/, 'g');
     const indexes = [];
     let result;
     while ((result = regexQuotes.exec(line))) {
-      indexes.push(result.index);
+      indexes.push([result.index, regexQuotes.lastIndex - 1]);
     }
     return indexes;
   }
 
-  isNotBetweenQuotes(quotesIndexes: number[], charIndex: number) {
-    for (const [key, val] of quotesIndexes.entries()) {
-      if (val > charIndex) {
-        return (key + key + 3) % 4 === 3;
+  getRegexpIndexes(line: string) {
+    const regexRegexp = new RegExp(
+      /(?<=[\s(])\/[^/*].*\/(?=[\s).,;gmisdyuv])/,
+      'g'
+    );
+    const indexes = [];
+    let result;
+    while ((result = regexRegexp.exec(line))) {
+      indexes.push([result.index, regexRegexp.lastIndex - 1]);
+    }
+    return indexes;
+  }
+
+  getQuotesAndRegexpIndexes(
+    quotesIndexes: number[][],
+    regexpIndexes: number[][]
+  ) {
+    const regNotInQuotesIndexes = [];
+    for (const regIndex of regexpIndexes) {
+      const [regStart, regEnd] = regIndex;
+      const len = quotesIndexes.length;
+      let i = 0;
+
+      while (i < len) {
+        const [quoStart, quoEnd] = quotesIndexes[i];
+        if (regStart > quoStart && regEnd < quoEnd) {
+          break;
+        }
+        i++;
+      }
+
+      if (i === len) {
+        regNotInQuotesIndexes.push(regIndex);
+      }
+    }
+
+    return [...quotesIndexes, ...regNotInQuotesIndexes];
+  }
+
+  isNotInQuotesAndRegexp(commentCharIndex: number) {
+    for (const [start, end] of this.indexesOfQuotesAndRegexp) {
+      if (start < commentCharIndex && end > commentCharIndex) {
+        return false;
       }
     }
     return true;
@@ -39,7 +81,7 @@ class TrimCommentsInLine {
     let result;
     while ((result = regexDoubleSlash.exec(line))) {
       const index = result.index;
-      if (this.isNotBetweenQuotes(this.indexes, index)) {
+      if (this.isNotInQuotesAndRegexp(index)) {
         comment.push([index, this.length]);
         break;
       }
@@ -90,7 +132,7 @@ class TrimCommentsInLine {
     while ((result = regexOpened.exec(line))) {
       const openedIndex = result.index;
 
-      if (this.isNotBetweenQuotes(this.indexes, openedIndex)) {
+      if (this.isNotInQuotesAndRegexp(openedIndex)) {
         regexClosed.lastIndex = regexOpened.lastIndex;
         const result = regexClosed.exec(line);
         if (result === null) {

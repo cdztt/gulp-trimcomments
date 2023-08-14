@@ -1,4 +1,9 @@
 /// <reference types="node" />
-import { Transform } from 'node:stream';
-declare const inst: Transform;
-export default inst;
+/// <reference types="node" />
+import { Transform, TransformCallback } from 'node:stream';
+import File from 'vinyl';
+declare class TrimComments extends Transform {
+    constructor();
+    _transform(file: File, _: BufferEncoding, cb: TransformCallback): Promise<void>;
+}
+export { TrimComments };

@@ -1,12 +1,14 @@
 declare class TrimCommentsInLine {
-    private line;
-    private length;
-    private indexes;
-    private lookForClosed;
+    line: string;
+    length: number;
+    indexesOfQuotesAndRegexp: number[][];
+    lookForClosed: number;
     constructor();
     init(line: string): void;
-    getQuotesIndexes(line: string): number[];
-    isNotBetweenQuotes(quotesIndexes: number[], charIndex: number): boolean;
+    getQuotesIndexes(line: string): number[][];
+    getRegexpIndexes(line: string): number[][];
+    getQuotesAndRegexpIndexes(quotesIndexes: number[][], regexpIndexes: number[][]): number[][];
+    isNotInQuotesAndRegexp(commentCharIndex: number): boolean;
     getDoubleSlashCommentIndex(line: string): number[][];
     getMultiCommentIndexes(line: string): number[][];
     getMultiCommentIndexesWithoutLookForClosed(line: string, regexOpened: RegExp, regexClosed: RegExp): number[][];
@@ -14,4 +16,4 @@ declare class TrimCommentsInLine {
     trim(line: string): string;
     reset(): void;
 }
-export default TrimCommentsInLine;
+export = TrimCommentsInLine;
