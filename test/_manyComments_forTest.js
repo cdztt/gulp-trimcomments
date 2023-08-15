@@ -154,15 +154,19 @@ const config = {
   // testLocationInResults: false,
 
   // The glob patterns Jest uses to detect test files
-  testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[tj]s?(x)'],
+  testMatch: [
+    '**/__tests__/**/*.[jt]s?(x)',
+    '**/?(*.)+(spec|test).[tj]s?(x)',
+  ] /* aaaaaa */,
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   // testPathIgnorePatterns: ['\\\\node_modules\\\\'],
 
   // The regexp pattern or array of patterns that Jest uses to detect test files
-  testRegex: /\/*\//g,
-  testRegex2: /(\/__tests__\/.*|(\\.|\/)(test|spec))\\.[jt]sx?$/,
-  testRegex3: '(/__tests__/.*|(\\.|/)(test|spec))\\.[jt]sx?$',
+  testRegex: /\/*\//g, //aaaaaaa
+  testRegex2 /* aaaaaaa */: /(\/__tests__\/.*|(\\.|\/)(test|spec))\\.[jt]sx?$/,
+  /* aaaaaaa
+  aaaaaa */ testRegex3: '(/__tests__/.*|(\\.|/)(test|spec))\\.[jt]sx?$',
 
   // This option allows the use of a custom results processor
   // testResultsProcessor: undefined,
