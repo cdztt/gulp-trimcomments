@@ -65,11 +65,10 @@ test('Test the .json file', async () => {
 test('Test the .js file', async () => {
   const expected = String.raw`const config = {
   clearMocks: true,
-  collectCoverage: true,
-  coverageDirectory: "coverage",
-  coverageProvider: "v8",
   testMatch: ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[tj]s?(x)"],
-  testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.jsx?$",
+  testRegex: /\/*\//g,
+  testRegex2: /(\/__tests__\/.*|(\\.|\/)(test|spec))\\.[jt]sx?$/,
+  testRegex3: "(/__tests__/.*|(\\.|/)(test|spec))\\.[jt]sx?$",
   transformIgnorePatterns: ["\\\\node_modules\\\\", "\\.pnp\\.[^\\\\]+$"],
 };
 module.exports = config;

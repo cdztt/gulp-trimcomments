@@ -18,13 +18,13 @@ const config = {
   clearMocks: true,
 
   // Indicates whether the coverage information should be collected while executing the test
-  collectCoverage: true,
+  // collectCoverage: true,
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
   // collectCoverageFrom: undefined,
 
   // The directory where Jest should output its coverage files
-  coverageDirectory: 'coverage',
+  // coverageDirectory: 'coverage',
 
   // An array of regexp pattern strings used to skip coverage collection
   // coveragePathIgnorePatterns: [
@@ -32,7 +32,7 @@ const config = {
   // ],
 
   // Indicates which provider should be used to instrument code for coverage
-  coverageProvider: 'v8',
+  // coverageProvider: 'v8',
 
   // A list of reporter names that Jest uses when writing coverage reports
   // coverageReporters: [
@@ -160,9 +160,9 @@ const config = {
   // testPathIgnorePatterns: ['\\\\node_modules\\\\'],
 
   // The regexp pattern or array of patterns that Jest uses to detect test files
-  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.jsx?$',
-
-  // testRegex4: /\/*__tests__*\/.*|(\.|\/)(test|spec).jsx?\//g,
+  testRegex: /\/*\//g,
+  testRegex2: /(\/__tests__\/.*|(\\.|\/)(test|spec))\\.[jt]sx?$/,
+  testRegex3: '(/__tests__/.*|(\\.|/)(test|spec))\\.[jt]sx?$',
 
   // This option allows the use of a custom results processor
   // testResultsProcessor: undefined,
