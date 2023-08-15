@@ -6,7 +6,7 @@ const { TrimComments } = require('./dist');
 function task() {
   return src('test/_manyComments_forTest.*')
     .pipe(new TrimComments())
-    .pipe(dest('test/gulp_result'));
+    .pipe(dest('test/_gulp_result'));
 }
 
 exports.default = task;
